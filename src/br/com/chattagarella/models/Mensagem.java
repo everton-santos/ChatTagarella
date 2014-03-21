@@ -7,6 +7,8 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Mensagem extends UnipeVO {
@@ -15,8 +17,12 @@ public class Mensagem extends UnipeVO {
 	@GeneratedValue
 	private Long id;
 	
+	@ManyToOne
+	@JoinColumn(name="id_destinatario")
 	private Usuario destinatario;
 	
+	@ManyToOne
+	@JoinColumn(name="id_remetente")
 	private Usuario remetente;
 	
 	private String texto;

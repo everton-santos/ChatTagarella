@@ -24,4 +24,8 @@ public class UsuarioAplicacao {
 	public void remover(Usuario usuario) {
 		dao.remover(usuario);
 	}
+
+	public Usuario getPorLoginSenha(Usuario usuario) {
+		return dao.getPorLoginSenha(usuario);
+	}
 }

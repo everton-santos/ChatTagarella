@@ -19,7 +19,7 @@ public class IndexServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		if (CoockiesManager.getUserName(request).length() > 0) {
+		if (CoockiesManager.getUserId(request) > 0) {
 			response.sendRedirect("ChatTagarella/mensagens.do");
 		} else {
 			response.sendRedirect("/ChatTagarella/login.html");

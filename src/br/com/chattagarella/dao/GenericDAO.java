@@ -1,5 +1,6 @@
 package br.com.chattagarella.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -11,8 +12,8 @@ import br.com.chattagarella.models.UnipeVO;
 
 public abstract class GenericDAO<T extends UnipeVO> {
 
-	private static EntityManagerFactory entityManagerFactory;
-	private EntityManager manager;
+	protected static EntityManagerFactory entityManagerFactory;
+	protected EntityManager manager;
 
 	public GenericDAO() {
 		if (entityManagerFactory == null) {
@@ -22,7 +23,16 @@ public abstract class GenericDAO<T extends UnipeVO> {
 	}
 
 	public void salvar(T obj) {
-		if (consultar(obj).size() > 0) {
+
+		T retorno = null;
+		try {
+			retorno = consultar(obj).get(0);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		if (retorno != null) {
 			alterar(obj);
 		} else {
 			incluir(obj);
@@ -47,9 +57,19 @@ public abstract class GenericDAO<T extends UnipeVO> {
 	}
 
 	public List<T> consultar(T obj) {
+
+		List<T> lista = null;
+
 		manager = entityManagerFactory.createEntityManager();
-		List<T> lista = (List<T>) manager.find(obj.getClass(),
-				obj.getIdentificador());
+
+		Serializable id = obj.getIdentificador();
+
+		if (id != null) {
+			lista = (List<T>) manager.find(obj.getClass(),
+					obj.getIdentificador());
+
+		}
+
 		manager.close();
 		return lista;
 	}
