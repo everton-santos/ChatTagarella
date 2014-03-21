@@ -13,7 +13,7 @@ public class MensagemDao extends GenericDAO<Mensagem>
 	public List<Mensagem> listarMensagensNaoLidas(Usuario destinatario, Usuario remetente)
 	{
 		manager = entityManagerFactory.createEntityManager();
-		String sql = String.format("select c from %s c where ", Mensagem.class.getName());
+		String sql = String.format("select c from %s c where c.id_destinatario = '%s'", Mensagem.class.getName());
 		Query query = manager.createQuery(sql, Mensagem.class);
 		return query.getResultList();
 	}
