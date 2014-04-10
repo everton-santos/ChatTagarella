@@ -14,7 +14,7 @@ public class UsuarioAplicacao {
 	}
 
 	public List<Usuario> listar() {
-		return dao.listar(new Usuario());
+		return dao.listar();
 	}
 
 	public List<Usuario> consultar(Usuario usuario) {

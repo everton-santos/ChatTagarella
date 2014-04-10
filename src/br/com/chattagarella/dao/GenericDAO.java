@@ -15,6 +15,8 @@ public abstract class GenericDAO<T extends UnipeVO> {
 	protected static EntityManagerFactory entityManagerFactory;
 	protected EntityManager manager;
 
+	protected abstract Class getEntityClass();
+	
 	public GenericDAO() {
 		if (entityManagerFactory == null) {
 			entityManagerFactory = Persistence
@@ -67,18 +69,18 @@ public abstract class GenericDAO<T extends UnipeVO> {
 		if (id != null) {
 			lista = (List<T>) manager.find(obj.getClass(),
 					obj.getIdentificador());
-
 		}
 
 		manager.close();
 		return lista;
 	}
 
-	public List<T> listar(T obj) {
+	public List<T> listar() {
 		manager = entityManagerFactory.createEntityManager();
+		
 		Query query = manager.createQuery(
-				String.format("select c from %s c", obj.getClass().getName()),
-				obj.getClass());
+				String.format("select c from %s c",getEntityClass().getName()),
+				getEntityClass());
 		return query.getResultList();
 	}
 

@@ -28,7 +28,7 @@ public class MensagemAplicacao
 	
 	public List<Mensagem> listar()
 	{
-		return dao.listar(new Mensagem());
+		return dao.listar();
 	}
 	
 	public List<Mensagem> consultar(Mensagem mensagem)
